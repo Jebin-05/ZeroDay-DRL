@@ -1,0 +1,134 @@
+# ZeroDay-DRL Configuration File
+# ================================
+
+# Dataset Configuration
+dataset:
+  name: "synthetic_iot"  # Options: synthetic_iot, mirai, bashlite, iot23
+  data_path: "./data"
+  train_split: 0.7
+  val_split: 0.15
+  test_split: 0.15
+  early_stage_window: 5.0  # seconds - focus on first N seconds of flow
+
+# Feature Engineering
+features:
+  window_size: 2.0  # seconds
+  slide_step: 0.5   # sliding window step
+  feature_dim: 15   # number of extracted features
+  normalize: true
+
+  # Features to extract
+  extract:
+    - packet_count
+    - flow_duration
+    - syn_ack_ratio
+    - unique_dst_ip_count
+    - inter_arrival_time_mean
+    - inter_arrival_time_var
+    - payload_size_mean
+    - payload_size_var
+    - small_payload_ratio
+    - tcp_flags_entropy
+    - port_diversity
+    - bytes_per_second
+    - packets_per_second
+    - direction_ratio
+    - protocol_diversity
+
+# DRL Agent Configuration
+drl:
+  algorithm: "dqn"  # Options: dqn, ppo
+
+  # Common parameters
+  gamma: 0.99
+  learning_rate: 0.001
+  batch_size: 64
+  buffer_size: 10000
+  target_update_freq: 100
+  epsilon_start: 1.0
+  epsilon_end: 0.01
+  epsilon_decay: 0.995
+
+  # Network architecture
+  hidden_dims: [128, 64, 32]
+
+  # PPO specific
+  ppo:
+    clip_epsilon: 0.2
+    value_coef: 0.5
+    entropy_coef: 0.01
+    gae_lambda: 0.95
+    num_epochs: 4
+    num_steps: 128
+
+# Few-Shot Meta-Learning Configuration
+few_shot:
+  algorithm: "prototypical"
+  embedding_dim: 64
+  hidden_dims: [128, 64]
+
+  # Episodic training
+  n_way: 2           # Number of classes (Normal, Botnet)
+  k_shot: 5          # Support samples per class
+  n_query: 15        # Query samples per class
+
+  # Training
+  num_episodes: 1000
+  learning_rate: 0.001
+
+  # Distance metric
+  distance: "euclidean"  # Options: euclidean, cosine
+
+# Hybrid Model Configuration
+hybrid:
+  drl_confidence_threshold: 0.7
+  few_shot_trigger_threshold: 0.5
+  adaptation_rate: 0.1
+  ensemble_weight_drl: 0.6
+  ensemble_weight_fewshot: 0.4
+
+# Reward Configuration
+rewards:
+  correct_early_detection: 1.0
+  correct_normal: 0.5
+  false_positive: -1.0
+  false_negative: -2.0
+  late_detection: -1.5
+
+# Training Configuration
+training:
+  num_episodes: 500
+  max_steps_per_episode: 200
+  eval_frequency: 50
+  save_frequency: 100
+  early_stopping_patience: 50
+
+  # Device
+  device: "cpu"  # Options: cpu, cuda
+
+  # Reproducibility
+  seed: 42
+
+# Evaluation Configuration
+evaluation:
+  metrics:
+    - accuracy
+    - precision
+    - recall
+    - f1_score
+    - false_positive_rate
+    - detection_latency
+    - adaptation_speed
+
+  # Comparison baselines
+  baselines:
+    - random_forest
+    - svm
+    - mlp
+    - lstm
+
+# GUI Configuration
+gui:
+  theme: "dark"  # Options: dark, light
+  window_size: "1200x800"
+  refresh_rate: 100  # ms
