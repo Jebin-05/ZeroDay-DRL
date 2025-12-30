@@ -227,10 +227,15 @@ The system works **out of the box** with:
 - **Demo mode**: Uses synthetic data for demonstration
 - **Pre-trained model**: Already trained and ready to detect threats
 
-If you want to train with real IoT-23 dataset:
-1. Download IoT-23 dataset from [Stratosphere IPS](https://www.stratosphereips.org/datasets-iot23)
+### Download IoT-23 Dataset from Kaggle
+
+If you want to train with the real IoT-23 dataset:
+
+1. Download the IoT-23 dataset from Kaggle: [IoT-23 Dataset on Kaggle](https://www.kaggle.com/datasets/ieee8023/iot23-dataset)
 2. Place the CSV file in the `data/` folder as `iot23_combined.csv`
 3. Run training: `python main.py --mode train --data-source iot23`
+
+**Note:** The IoT-23 dataset was created by Stratosphere Laboratory and contains real IoT network traffic with labeled botnet attacks. It includes traffic from various IoT devices infected with different malware families.
 
 ---
 
@@ -249,15 +254,59 @@ Options:
 
 ---
 
-## What Each Button Does
+## Complete GUI Guide
 
-| Button | What It Does |
-|--------|--------------|
-| START DETECTION | Begins continuous scanning of samples |
-| STOP DETECTION | Stops the scanning |
-| Test Single Sample | Tests just one sample at a time |
-| Reset Results | Clears all results and graphs |
-| Speed Slider | Controls how fast detection runs |
+### Top Bar
+
+| Component | Description |
+|-----------|-------------|
+| **ZeroDay-DRL Title** | Project name displayed at the top left |
+| **Status Indicator** | Shows system state: Green = Ready, Orange = Loading, Red = Error |
+
+### Left Panel - Controls
+
+| Button/Control | What It Does |
+|----------------|--------------|
+| **START DETECTION** (Green) | Begins continuous automated scanning. The system randomly picks samples from the test dataset and classifies them as THREAT or SAFE. Button changes to red "STOP DETECTION" when running. |
+| **STOP DETECTION** (Red) | Stops the continuous scanning process |
+| **Test Single Sample** (Blue) | Tests exactly one sample at a time. Useful for step-by-step demonstration |
+| **Reset Results** (Grey) | Clears all accumulated statistics and graphs to start fresh |
+| **Speed Slider** | Controls detection speed from 100ms (fast) to 1000ms (slow) per sample |
+
+### Left Panel - Current Result Display
+
+| Display | Meaning |
+|---------|---------|
+| **THREAT** (Red text) | System detected botnet/malicious traffic |
+| **SAFE** (Green text) | System detected normal/benign traffic |
+| **Confidence** | How certain the model is about its prediction (0-100%) |
+
+### Left Panel - Statistics
+
+| Statistic | Description |
+|-----------|-------------|
+| **Total Samples** | Number of samples tested so far |
+| **Threats Found** (Red) | Count of detected botnet attacks |
+| **Safe Traffic** (Green) | Count of normal traffic identified |
+| **Accuracy** (Yellow) | Percentage of correct predictions |
+| **Detection Rate** (Blue) | Percentage of actual threats successfully detected (Recall) |
+
+### Right Panel - Graphs
+
+| Graph | What It Shows |
+|-------|---------------|
+| **Detection Results (Pie Chart)** | Distribution of detected threats vs safe traffic with percentages |
+| **Confidence Trend (Line Graph)** | Confidence scores of the last 50 predictions over time |
+| **Predictions (Bar Chart)** | Visual comparison of correct vs wrong predictions |
+
+### Right Panel - Detection Log
+
+A scrollable text area that records every detection with:
+- Timestamp
+- Prediction (THREAT or SAFE)
+- True label (actual classification)
+- Confidence score
+- Result (Correct or Wrong)
 
 ---
 
@@ -265,11 +314,13 @@ Options:
 
 **Accuracy:** How often the system is correct (higher is better)
 
-**Detection Rate:** How many actual threats were caught (higher is better)
+**Detection Rate (Recall):** How many actual threats were caught (higher is better)
 
 **Threats Found:** Number of samples identified as attacks
 
 **Safe Traffic:** Number of samples identified as normal
+
+**Confidence:** Model's certainty in its prediction (higher = more confident)
 
 ---
 
