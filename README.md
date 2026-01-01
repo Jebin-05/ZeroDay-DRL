@@ -4,6 +4,8 @@ A smart IoT Botnet Detection System using Deep Reinforcement Learning + Few-Shot
 
 **Plug and Play!** Clone, install, and run - the pre-trained model is included!
 
+**NEW:** Cyber Hacker Theme - Red & Black terminal-style interface with monospace fonts and ASCII art styling.
+
 ---
 
 ## Quick Start (3 Steps)
@@ -20,7 +22,29 @@ pip install -r requirements.txt
 python3 gui/simple_gui.py
 ```
 
-That's it! The GUI will open and you can start detecting threats immediately.
+### First-Time Setup Workflow
+
+When you launch the GUI, you'll see a **3-step interactive workflow** on the home page:
+
+**STEP 1: Load Dataset**
+- Click **"Load IoT-23 Dataset"** to load real network traffic data from `data/cleaned_data.csv`
+- OR click **"Load Synthetic Data"** to generate test data
+- The GUI will show dataset statistics (samples, features, threats vs safe)
+
+**STEP 2: Preprocess Data**
+- After loading, the **"Start Preprocessing"** button becomes active
+- Click it to clean, normalize, and split the data
+- Watch real-time preprocessing progress messages
+
+**STEP 3: Initialize Model**
+- After preprocessing, the **"Initialize Model"** button becomes active
+- Click it to load the trained DRL model or initialize few-shot learning
+- Once complete, you're ready to detect threats!
+
+**STEP 4: Start Detection**
+- Navigate to the **Detect** page using the navigation bar
+- Click **▶ START** to begin continuous real-time detection
+- Watch live threat analysis with actual inference times!
 
 ---
 
@@ -61,37 +85,46 @@ python3 gui/simple_gui.py
 
 ## GUI User Manual
 
-### Overview
+### Overview - Cyber Hacker Theme
+
+The interface features a **red and black cyber security theme** with:
+- **Pure black background** (#000000) for terminal aesthetic
+- **Bright red accents** (#ff0000) for critical information
+- **Monospace Courier font** for authentic hacker terminal look
+- **ASCII art symbols** (⚠, █, ▶, ■) for visual emphasis
+- **Red borders** on key panels for the cyber security feel
 
 The interface has:
-- **Top Bar**: Title, live stats, and system status
-- **Navigation Bar**: 6 page buttons + 4 quick action buttons
-- **Main Content**: Changes based on selected page
+- **Top Bar**: `⚠ ZeroDay-DRL ⚠` title with live stats and system status
+- **Navigation Bar**: 6 red-themed page buttons + 4 quick action buttons
+- **Main Content**: Pure black background with red highlighted elements
 
 ---
 
 ### Top Bar (Always Visible)
 
-| Component | What It Shows |
-|-----------|---------------|
-| **ZeroDay-DRL** | Project title |
-| **Time: HH:MM:SS** | Elapsed detection time |
-| **Detections: N** | Total samples processed |
-| **Rate: X/s** | Detections per second |
-| **Status Badge** | Green = Ready, Orange = Loading, Blue = Running |
+| Component | What It Shows | Color |
+|-----------|---------------|-------|
+| **⚠ ZeroDay-DRL ⚠** | Project title with warning symbols | Bright Red |
+| **Time: HH:MM:SS** | Elapsed detection time | Gray |
+| **Detections: N** | Total samples processed | Bright Red |
+| **Rate: X/s** | Detections per second | Dark Red |
+| **Status Badge** | Red = Ready/Loading, Bright Red = Running | Red Variants |
 
 ---
 
 ### Navigation Buttons (6 Pages)
 
+All buttons use red color variations on black background with Courier font:
+
 | Button | Color | What It Does |
 |--------|-------|--------------|
-| **Home** | Purple | Welcome page with system status and model info |
-| **Learn** | Purple | Educational page explaining threat vs safe classification |
-| **Detect** | Green | Main detection page with live real-time analysis |
-| **Stats** | Cyan | Dashboard with accuracy metrics and performance data |
-| **Compare** | Orange | Model comparison table (DRL vs other methods) |
-| **Settings** | Gray | Configure detection speed and reload model |
+| **Home** | Bright Red (#ff0000) | Welcome page with 3-step workflow buttons |
+| **Learn** | Red (#dc2626) | Educational page explaining threat vs safe classification |
+| **Detect** | Red (#ef4444) | Main detection page with live real-time analysis |
+| **Stats** | Dark Red (#991b1b) | Dashboard with accuracy metrics and performance data |
+| **Compare** | Red (#b91c1c) | Model comparison table (DRL vs other methods) |
+| **Settings** | Dark Red (#7f1d1d) | Configure detection speed and reload model |
 
 ---
 
@@ -108,22 +141,100 @@ The interface has:
 
 ## Page Details
 
-### HOME Page
+### 📊 DATA Page (Enhanced GUI Only)
 
-Shows system status and model information:
+The Data page provides interactive dataset management and preprocessing:
 
-| Display | Meaning |
-|---------|---------|
-| **Model Type** | Shows if using Trained DRL Model or Few-Shot Learning |
-| **Samples** | Number of test samples available |
-| **Dimensions** | Number of features in the data |
-| **Data Source** | IoT-23 Dataset or Synthetic data |
-| **Device** | CPU or CUDA (GPU) |
+#### Left Panel - Load Dataset
 
-**Buttons on this page:**
-- **Start Detection** - Go to Detect page
-- **Learn About Threats** - Go to Learn page
-- **View Statistics** - Go to Stats page
+| Button | What It Does |
+|--------|--------------|
+| **Browse Dataset** | Opens file browser to select custom CSV dataset |
+| **Load Default (IoT-23)** | Loads the built-in IoT-23 dataset from data/cleaned_data.csv |
+| **Load Synthetic Data** | Generates and loads synthetic test data |
+
+#### Dataset Info Display
+
+Shows real-time information about the loaded dataset:
+- **Samples**: Total number of samples in dataset
+- **Features**: Number of features/dimensions
+- **Threats**: Count of threat samples
+- **Safe**: Count of safe samples
+
+#### Right Panel - Preprocessing Pipeline
+
+Interactive preprocessing visualization with:
+
+**Status Indicator**: Shows current preprocessing state
+- ⏳ Ready to preprocess (Yellow)
+- ⚙️ Processing... (Blue)
+- ✅ Preprocessing Complete! (Green)
+
+**Progress Bar**: Visual progress indicator (0-100%)
+
+**Processing Steps** (Shows completion status with checkmarks):
+1. ⏺ Load Data → ✅ Load Data
+2. ⏺ Clean Missing Values → ✅ Clean Missing Values
+3. ⏺ Normalize Features → ✅ Normalize Features
+4. ⏺ Split Train/Test → ✅ Split Train/Test
+5. ⏺ Initialize Model → ✅ Initialize Model
+
+Each step turns green with a checkmark (✅) when completed.
+
+**START PREPROCESSING Button**: Begins the preprocessing pipeline automatically
+
+**How to Use the Data Page:**
+1. Click "Load Default (IoT-23)" or "Browse Dataset" to select data
+2. Review the dataset info (samples, features, threats, safe)
+3. Click "START PREPROCESSING" to begin processing
+4. Watch the progress bar and step indicators update in real-time
+5. When complete (all steps green), the model loads automatically
+
+---
+
+### HOME Page - Interactive Workflow
+
+The home page features the **3-step interactive workflow** with visual feedback:
+
+**Title Section:**
+- `⚠ IoT Botnet Detection ⚠` - Main title with warning symbols
+- `[ Deep Reinforcement Learning + Few-Shot Learning ]` - Subtitle in brackets
+
+**System Status Panel** (Black with red border):
+- Shows current workflow status
+- Updates in real-time as you complete each step
+
+**STEP 1: Load Dataset**
+Two buttons to choose data source:
+- **"Load IoT-23 Dataset"** - Loads real network traffic from CSV (48,003 samples)
+- **"Load Synthetic Data"** - Generates synthetic test data
+
+After loading, you'll see:
+- Total samples, feature dimensions
+- Number of safe vs threat samples
+- Data source confirmation
+
+**STEP 2: Preprocess Data**
+- Button becomes active (bright red) after Step 1
+- **"Start Preprocessing"** - Cleans, normalizes, and splits data
+- Shows real-time progress messages:
+  - Cleaning missing values
+  - Normalizing features
+  - Splitting train/test sets
+- Displays train/test split sizes when complete
+
+**STEP 3: Initialize Model**
+- Button becomes active (bright red) after Step 2
+- **"Initialize Model"** - Loads trained weights or sets up few-shot learning
+- Shows:
+  - Device being used (CPU/CUDA)
+  - Model type (Trained DRL or Few-Shot)
+  - Final sample counts
+
+**Navigation Buttons:**
+- **"Start Detection"** - Go to Detect page (enabled after Step 3)
+- **"Learn About Threats"** - Go to Learn page
+- **"View Statistics"** - Go to Stats page
 
 ---
 
@@ -159,33 +270,33 @@ Educational content explaining why traffic is classified as threat or safe.
 
 ### DETECT Page (Main Detection Interface)
 
-This is the main working page for real-time threat detection.
+This is the main working page for real-time threat detection with cyber hacker styling.
 
-#### Top Indicators
+#### Top Indicators (Red on Black)
 
-| Display | Meaning |
-|---------|---------|
-| **Inference: Xms** | Actual time taken for model to process (proves real-time) |
-| **Sample: #N** | Actual dataset index being tested (proves real data) |
-| **Status Badge** | Ready / LIVE / Paused |
+| Display | Meaning | Style |
+|---------|---------|-------|
+| **Inference: Xms** | Actual time taken for model to process (proves real-time) | Red text |
+| **Sample: #N** | Actual dataset index being tested (proves real data) | Red text |
+| **Status Badge** | Ready / █ LIVE █ / Paused | Red background when live |
 
-#### Left Panel - Controls
+#### Left Panel - Controls (Courier Font)
 
-| Button/Display | What It Does |
-|----------------|--------------|
-| **START** (Green) | Begin continuous detection loop |
-| **STOP** (Red) | Pause detection (appears when running) |
-| **Test One** (Cyan) | Test exactly one sample |
-| **Reset** (Gray) | Clear all results and start fresh |
+| Button/Display | What It Does | Style |
+|----------------|--------------|-------|
+| **▶ START** | Begin continuous detection loop | Red button with play symbol |
+| **■ STOP** | Pause detection (appears when running) | Bright red with stop symbol |
+| **Test One** | Test exactly one sample | Dark red button |
+| **Reset** | Clear all results and start fresh | Dark red button |
 
-#### Left Panel - Result Display
+#### Left Panel - Result Display (Cyber Theme)
 
-| Display | Meaning |
-|---------|---------|
-| **THREAT** (Red) | Botnet/attack detected |
-| **SAFE** (Green) | Normal traffic detected |
-| **WAITING** (Blue) | No detection yet |
-| **Confidence: X%** | How certain the model is |
+| Display | Meaning | Style |
+|---------|---------|-------|
+| **⚠ THREAT ⚠** | Botnet/attack detected | Bright red with warning symbols |
+| **✓ SAFE ✓** | Normal traffic detected | Dark gray with checkmarks |
+| **WAITING** | No detection yet | Red text on black |
+| **Confidence: X%** | How certain the model is | Red text |
 
 #### Left Panel - Live Feature Values
 
@@ -284,31 +395,78 @@ Configuration options:
 
 ---
 
-## Understanding the Colors
+## Understanding the Cyber Hacker Theme
 
-| Color | Meaning |
-|-------|---------|
-| **Green** | Safe traffic / Success / Ready |
-| **Red** | Threat detected / Stop / Error |
-| **Cyan/Blue** | Information / Running |
-| **Orange** | Warning / Loading |
-| **Yellow** | Statistics / Accuracy |
-| **Purple** | Features / Navigation |
+### Color Scheme
+
+| Color | Hex Code | Meaning |
+|-------|----------|---------|
+| **Pure Black** | #000000 | Main background - terminal aesthetic |
+| **Dark Black** | #0a0a0a | Panel backgrounds |
+| **Bright Red** | #ff0000 | Critical info, threats, live status |
+| **Red** | #dc2626, #ef4444 | Buttons, accents, ready status |
+| **Dark Red** | #b91c1c, #991b1b, #7f1d1d | Secondary buttons, loading status |
+| **Dark Gray** | #666, #555 | Safe traffic, secondary text |
+| **Light Gray** | #999 | Informational text |
+
+### Visual Elements
+
+| Element | Style | Purpose |
+|---------|-------|---------|
+| **Fonts** | Courier (monospace) | Authentic terminal/hacker aesthetic |
+| **Borders** | Red (#ff0000) solid lines | Frame important panels |
+| **Symbols** | ⚠ █ ▶ ■ ✓ | ASCII art for visual emphasis |
+| **Backgrounds** | Pure black (#000000) | Maximum contrast for visibility |
+| **Threat Indicator** | `⚠ THREAT ⚠` in bright red | Immediate visual alert |
+| **Safe Indicator** | `✓ SAFE ✓` in dark gray | Minimal distraction |
+| **Live Status** | `█ LIVE █` in bright red | Unmistakable active state |
 
 ---
 
 ## How Detection Works
 
-1. System loads the pre-trained Hybrid Detector (DRL + Few-Shot Learning)
-2. Test data is loaded from IoT-23 dataset or synthetic data
-3. When you click START, the system:
+### Complete Workflow
+
+**STEP 1: Data Loading** (Home Page)
+1. Click "Load IoT-23 Dataset" or "Load Synthetic Data"
+2. System reads CSV file with network traffic features
+3. Converts text labels ("Benign", "Attack", etc.) to binary (0=safe, 1=threat)
+4. Extracts 24 feature dimensions from each sample
+5. Displays dataset statistics in red terminal-style text
+
+**STEP 2: Preprocessing** (Home Page)
+1. Click "Start Preprocessing" after data loads
+2. System performs:
+   - **Cleaning**: Fills missing values with column means
+   - **Normalization**: Scales all features using StandardScaler
+   - **Splitting**: Creates 70% train / 30% test split
+3. Real-time progress messages appear in red monospace font
+4. Preprocessed data stored in memory for model initialization
+
+**STEP 3: Model Initialization** (Home Page)
+1. Click "Initialize Model" after preprocessing
+2. System loads the pre-trained Hybrid Detector (DRL + Few-Shot Learning)
+3. Checks for saved checkpoint at `results/checkpoints/dqn_best.pth`
+4. If checkpoint exists: Loads trained DRL weights
+5. If no checkpoint: Initializes few-shot learning with 40 prototype samples
+6. Device detection (CUDA GPU or CPU fallback)
+7. Model ready indicator turns bright red
+
+**STEP 4: Real-Time Detection** (Detect Page)
+1. Navigate to Detect page using navigation bar
+2. Click **▶ START** button (turns to **■ STOP** in bright red)
+3. Status changes to `█ LIVE █` in bright red
+4. For each detection cycle:
    - Randomly selects a sample from test data
    - Runs it through the neural network model
-   - Measures actual inference time
-   - Displays prediction (THREAT/SAFE) with confidence
+   - Measures actual inference time (milliseconds)
+   - Displays prediction: `⚠ THREAT ⚠` or `✓ SAFE ✓`
+   - Shows confidence percentage
+   - Displays first 4 feature values in red
    - Compares with true label to calculate accuracy
-   - Logs everything with timestamps
-4. This continues in a loop until you click STOP
+   - Logs everything with timestamps in red terminal text
+5. Continues in a loop until you click **■ STOP**
+6. All stats update in real-time: total detections, threats, safe, accuracy
 
 ---
 
@@ -330,7 +488,7 @@ Configuration options:
 ```
 ZeroDay-DRL/
 ├── gui/
-│   └── simple_gui.py      <- RUN THIS FILE
+│   └── simple_gui.py      <- Main GUI (RUN THIS!)
 ├── data/
 │   └── cleaned_data.csv   <- Dataset (auto-generated if missing)
 ├── results/
@@ -339,7 +497,7 @@ ZeroDay-DRL/
 │   └── config.yaml        <- Configuration
 ├── hybrid_model/          <- Detection model code
 ├── preprocessing/         <- Data processing code
-├── main.py                <- Alternative entry point
+├── main.py                <- Command-line entry point
 ├── requirements.txt       <- Dependencies
 └── README.md              <- This file
 ```
@@ -349,7 +507,7 @@ ZeroDay-DRL/
 ## Command Line Options
 
 ```bash
-# Run the GUI (recommended)
+# Run the GUI (with 3-step workflow buttons)
 python3 gui/simple_gui.py
 
 # Run demo mode
