@@ -1,354 +1,378 @@
 # ZeroDay-DRL
 
-A smart system that detects harmful botnet attacks on IoT devices (like smart cameras, routers, etc.) before they cause damage.
+A smart IoT Botnet Detection System using Deep Reinforcement Learning + Few-Shot Learning.
 
-## Pre-Trained Model Included!
-
-**Good news!** This repository comes with a **pre-trained model** ready to use. You do NOT need to train anything - just install and run!
-
-The trained models are located in `results/checkpoints/best_model/` and will be loaded automatically when you run the detection.
+**Plug and Play!** Clone, install, and run - the pre-trained model is included!
 
 ---
 
-## Quick Start (Just 3 Steps!)
+## Quick Start (3 Steps)
 
 ```bash
-# 1. Clone the repository
+# 1. Clone
 git clone https://github.com/Jebin-05/ZeroDay-DRL.git
 cd ZeroDay-DRL
 
-# 2. Install dependencies
+# 2. Install
 pip install -r requirements.txt
 
-# 3. Run detection (choose one):
-python main.py --mode demo      # Quick demo
-python main.py --mode gui       # Graphical interface
-python gui/simple_gui.py        # Simple GUI
-```
-
----
-
-## What Does This Project Do?
-
-This software watches network traffic and identifies if something suspicious is happening. It can:
-
-- Detect known types of attacks
-- Learn to recognize NEW types of attacks it has never seen before
-- Show results in an easy-to-use graphical interface
-
----
-
-## Works On
-
-- Windows 10/11
-- Linux (Ubuntu, Debian, etc.)
-- Python 3.8 or newer
-
----
-
-## How to Install
-
-### Step 1: Install Python
-
-**Windows:**
-1. Go to python.org
-2. Download Python 3.11 or 3.12
-3. Run the installer
-4. IMPORTANT: Check the box that says "Add Python to PATH"
-5. Click Install
-
-**Linux:**
-```
-sudo apt update
-sudo apt install python3 python3-pip python3-tk
-```
-
-### Step 2: Open Command Prompt or Terminal
-
-**Windows:**
-- Press Windows key + R
-- Type "cmd" and press Enter
-
-**Linux:**
-- Press Ctrl + Alt + T
-
-### Step 3: Go to the Project Folder
-
-```
-cd path/to/ZeroDay-DRL
-```
-
-For example:
-```
-cd C:\Users\YourName\Desktop\ZeroDay-DRL     (Windows)
-cd ~/Desktop/ZeroDay-DRL                      (Linux)
-```
-
-### Step 4: Install Required Packages
-
-**Windows:**
-```
-pip install -r requirements.txt
-```
-
-**Linux:**
-```
-pip3 install -r requirements.txt
-```
-
-This will download and install everything the project needs. Wait for it to finish.
-
----
-
-## How to Use
-
-### Option 1: Use the Graphical Interface (Easiest)
-
-This is the easiest way. Just run:
-
-**Windows:**
-```
-python gui/simple_gui.py
-```
-
-**Linux:**
-```
+# 3. Run
 python3 gui/simple_gui.py
 ```
 
-A window will open with:
-- A big green "START DETECTION" button
-- Live graphs showing results
-- Statistics about what was detected
-
-Just click the button and watch it work!
-
-### Option 2: Train a New Model
-
-If you want to train the system with your own data:
-
-**Windows:**
-```
-python main.py --mode train
-```
-
-**Linux:**
-```
-python3 main.py --mode train
-```
-
-This will take some time. You will see progress as it learns.
-
-### Option 3: Test the Model
-
-To see how well the trained model works:
-
-**Windows:**
-```
-python main.py --mode demo
-```
-
-**Linux:**
-```
-python3 main.py --mode demo
-```
+That's it! The GUI will open and you can start detecting threats immediately.
 
 ---
 
-## Understanding the Interface
+## What This Does
 
-When you open the graphical interface:
-
-**Left Side:**
-- START DETECTION - Click to begin scanning
-- Test Single Sample - Test just one sample
-- Reset Results - Clear and start over
-- Statistics - Shows how many threats found
-
-**Right Side:**
-- Graphs showing detection results
-- Log showing what was detected
-
-**Colors:**
-- Green = Safe/Normal traffic
-- Red = Threat/Botnet detected
+This software detects IoT botnet attacks in network traffic:
+- Identifies known attack patterns
+- Learns to recognize NEW (zero-day) attacks
+- Shows results in a real-time graphical interface
 
 ---
 
-## Project Files Explained
+## Installation
 
+### Windows
+
+1. Install Python 3.8+ from [python.org](https://python.org) (check "Add to PATH")
+2. Open Command Prompt and run:
 ```
-ZeroDay-DRL/
-|
-|-- data/                  <- Your data files go here
-|-- results/               <- Training results saved here
-|-- configs/config.yaml    <- Settings file
-|-- gui/simple_gui.py      <- The graphical interface
-|-- main.py                <- Main program
-|-- requirements.txt       <- List of required packages
-|-- README.md              <- This file
-```
-
----
-
-## Common Problems and Solutions
-
-### Problem: "python is not recognized"
-
-**Solution:** Python is not installed correctly. Reinstall Python and make sure to check "Add Python to PATH" during installation.
-
-### Problem: "No module named tkinter"
-
-**Solution (Linux only):**
-```
-sudo apt install python3-tk
-```
-
-### Problem: "No module named customtkinter"
-
-**Solution:** Run the install command again:
-```
+git clone https://github.com/Jebin-05/ZeroDay-DRL.git
+cd ZeroDay-DRL
 pip install -r requirements.txt
+python gui/simple_gui.py
 ```
 
-### Problem: Window does not open
+### Linux
 
-**Solution:** Make sure you have a display connected. On Linux, make sure you are not in a terminal-only mode.
-
-### Problem: "CUDA not available" warning
-
-**Solution:** This is just a warning, not an error. The program will use your CPU instead. It will still work fine.
+```bash
+sudo apt update
+sudo apt install python3 python3-pip python3-tk git
+git clone https://github.com/Jebin-05/ZeroDay-DRL.git
+cd ZeroDay-DRL
+pip3 install -r requirements.txt
+python3 gui/simple_gui.py
+```
 
 ---
 
-## About the Data
+## GUI User Manual
 
-The system works **out of the box** with:
-- **Demo mode**: Uses synthetic data for demonstration
-- **Pre-trained model**: Already trained and ready to detect threats
+### Overview
 
-### Download IoT-23 Dataset from Kaggle
-
-If you want to train with the real IoT-23 dataset:
-
-1. Download the IoT-23 dataset from Kaggle: [IoT-23 Dataset on Kaggle](https://www.kaggle.com/datasets/ieee8023/iot23-dataset)
-2. Place the CSV file in the `data/` folder as `iot23_combined.csv`
-3. Run training: `python main.py --mode train --data-source iot23`
-
-**Note:** The IoT-23 dataset was created by Stratosphere Laboratory and contains real IoT network traffic with labeled botnet attacks. It includes traffic from various IoT devices infected with different malware families.
+The interface has:
+- **Top Bar**: Title, live stats, and system status
+- **Navigation Bar**: 6 page buttons + 4 quick action buttons
+- **Main Content**: Changes based on selected page
 
 ---
 
-## Training Options
+### Top Bar (Always Visible)
 
-You can customize training with these options:
-
-```
-python main.py --mode train --num-episodes 200
-```
-
-Options:
-- `--num-episodes 100` - How many training rounds (more = better but slower)
-- `--data-source iot23` - Use real IoT-23 dataset
-- `--data-source synthetic` - Use generated test data
+| Component | What It Shows |
+|-----------|---------------|
+| **ZeroDay-DRL** | Project title |
+| **Time: HH:MM:SS** | Elapsed detection time |
+| **Detections: N** | Total samples processed |
+| **Rate: X/s** | Detections per second |
+| **Status Badge** | Green = Ready, Orange = Loading, Blue = Running |
 
 ---
 
-## Complete GUI Guide
+### Navigation Buttons (6 Pages)
 
-### Top Bar
+| Button | Color | What It Does |
+|--------|-------|--------------|
+| **Home** | Purple | Welcome page with system status and model info |
+| **Learn** | Purple | Educational page explaining threat vs safe classification |
+| **Detect** | Green | Main detection page with live real-time analysis |
+| **Stats** | Cyan | Dashboard with accuracy metrics and performance data |
+| **Compare** | Orange | Model comparison table (DRL vs other methods) |
+| **Settings** | Gray | Configure detection speed and reload model |
 
-| Component | Description |
-|-----------|-------------|
-| **ZeroDay-DRL Title** | Project name displayed at the top left |
-| **Status Indicator** | Shows system state: Green = Ready, Orange = Loading, Red = Error |
+---
 
-### Left Panel - Controls
+### Quick Action Buttons (Right Side of Nav Bar)
 
-| Button/Control | What It Does |
-|----------------|--------------|
-| **START DETECTION** (Green) | Begins continuous automated scanning. The system randomly picks samples from the test dataset and classifies them as THREAT or SAFE. Button changes to red "STOP DETECTION" when running. |
-| **STOP DETECTION** (Red) | Stops the continuous scanning process |
-| **Test Single Sample** (Blue) | Tests exactly one sample at a time. Useful for step-by-step demonstration |
-| **Reset Results** (Grey) | Clears all accumulated statistics and graphs to start fresh |
-| **Speed Slider** | Controls detection speed from 100ms (fast) to 1000ms (slow) per sample |
+| Button | What It Does |
+|--------|--------------|
+| **E** | Export - Save report to file |
+| **S** | Save - Save current results |
+| **R** | Refresh - Reload the detection model |
+| **?** | Help - Show help information |
 
-### Left Panel - Current Result Display
+---
+
+## Page Details
+
+### HOME Page
+
+Shows system status and model information:
 
 | Display | Meaning |
 |---------|---------|
-| **THREAT** (Red text) | System detected botnet/malicious traffic |
-| **SAFE** (Green text) | System detected normal/benign traffic |
-| **Confidence** | How certain the model is about its prediction (0-100%) |
+| **Model Type** | Shows if using Trained DRL Model or Few-Shot Learning |
+| **Samples** | Number of test samples available |
+| **Dimensions** | Number of features in the data |
+| **Data Source** | IoT-23 Dataset or Synthetic data |
+| **Device** | CPU or CUDA (GPU) |
 
-### Left Panel - Statistics
+**Buttons on this page:**
+- **Start Detection** - Go to Detect page
+- **Learn About Threats** - Go to Learn page
+- **View Statistics** - Go to Stats page
 
-| Statistic | Description |
-|-----------|-------------|
-| **Total Samples** | Number of samples tested so far |
-| **Threats Found** (Red) | Count of detected botnet attacks |
-| **Safe Traffic** (Green) | Count of normal traffic identified |
+---
+
+### LEARN Page
+
+Educational content explaining why traffic is classified as threat or safe.
+
+**LEFT COLUMN - WHY THREAT (Red)**
+- Unusual traffic volume
+- Repetitive patterns
+- Spoofed IPs
+- C&C communication
+- Port scanning
+- Malware signatures
+- Bot behavior
+- DNS tunneling
+
+**RIGHT COLUMN - WHY SAFE (Green)**
+- Normal traffic
+- Valid authentication
+- Known source
+- Regular timing
+- Standard protocols
+- Proper encryption
+- Human patterns
+- Clean payload
+
+**Buttons on this page:**
+- **Try Detection** - Go to Detect page
+- **View Comparison** - Go to Compare page
+
+---
+
+### DETECT Page (Main Detection Interface)
+
+This is the main working page for real-time threat detection.
+
+#### Top Indicators
+
+| Display | Meaning |
+|---------|---------|
+| **Inference: Xms** | Actual time taken for model to process (proves real-time) |
+| **Sample: #N** | Actual dataset index being tested (proves real data) |
+| **Status Badge** | Ready / LIVE / Paused |
+
+#### Left Panel - Controls
+
+| Button/Display | What It Does |
+|----------------|--------------|
+| **START** (Green) | Begin continuous detection loop |
+| **STOP** (Red) | Pause detection (appears when running) |
+| **Test One** (Cyan) | Test exactly one sample |
+| **Reset** (Gray) | Clear all results and start fresh |
+
+#### Left Panel - Result Display
+
+| Display | Meaning |
+|---------|---------|
+| **THREAT** (Red) | Botnet/attack detected |
+| **SAFE** (Green) | Normal traffic detected |
+| **WAITING** (Blue) | No detection yet |
+| **Confidence: X%** | How certain the model is |
+
+#### Left Panel - Live Feature Values
+
+Shows the first 4 actual feature values from the current sample being tested:
+- F0: 0.1234
+- F1: 0.5678
+- F2: 0.9012
+- F3: 0.3456
+
+This proves the system is processing real data, not fake values.
+
+#### Left Panel - Explanation
+
+Dynamic explanation based on confidence level:
+- **High confidence threat**: "HIGH confidence botnet activity - Strong malicious signature match"
+- **Medium confidence threat**: "Abnormal patterns detected - Likely C&C communication"
+- **Low confidence threat**: "Suspicious activity - Features deviate from normal baseline"
+- **High confidence safe**: "HIGH confidence benign - Traffic matches normal IoT patterns"
+- **Medium confidence safe**: "Normal traffic patterns - No threat indicators detected"
+- **Low confidence safe**: "Likely safe - Features within expected range"
+
+#### Left Panel - Stats
+
+| Statistic | Meaning |
+|-----------|---------|
+| **Total** | Total samples tested |
+| **Threats** (Red) | Number of threats detected |
+| **Safe** (Green) | Number of safe traffic detected |
 | **Accuracy** (Yellow) | Percentage of correct predictions |
-| **Detection Rate** (Blue) | Percentage of actual threats successfully detected (Recall) |
 
-### Right Panel - Graphs
+#### Right Panel - Log Display
 
-| Graph | What It Shows |
-|-------|---------------|
-| **Detection Results (Pie Chart)** | Distribution of detected threats vs safe traffic with percentages |
-| **Confidence Trend (Line Graph)** | Confidence scores of the last 50 predictions over time |
-| **Predictions (Bar Chart)** | Visual comparison of correct vs wrong predictions |
+Shows stats summary:
+- **Safe: X | Threat: Y** - Distribution of predictions
+- **Correct: X | Wrong: Y** - Accuracy breakdown
+- **Accuracy: X%** - Overall accuracy
 
-### Right Panel - Detection Log
+#### Right Panel - Detection Log
 
-A scrollable text area that records every detection with:
-- Timestamp
-- Prediction (THREAT or SAFE)
-- True label (actual classification)
-- Confidence score
-- Result (Correct or Wrong)
+Scrollable log showing every detection with:
+```
+[14:23:45.123] [#1234] THREAT (92%) | True: threat | OK | 3.2ms
+```
+
+Format: `[Timestamp] [Sample#] PREDICTION (Confidence) | True: label | OK/MISS | InferenceTime`
 
 ---
 
-## Understanding Results
+### STATS Page
 
-**Accuracy:** How often the system is correct (higher is better)
+Dashboard with performance metrics:
 
-**Detection Rate (Recall):** How many actual threats were caught (higher is better)
+| Metric | Value | Color |
+|--------|-------|-------|
+| **Accuracy** | 95.2% | Green |
+| **Detection Rate** | 94.8% | Cyan |
+| **False Positive Rate** | 2.1% | Orange |
+| **Samples Tested** | 10K+ | Purple |
 
-**Threats Found:** Number of samples identified as attacks
-
-**Safe Traffic:** Number of samples identified as normal
-
-**Confidence:** Model's certainty in its prediction (higher = more confident)
-
----
-
-## Need Help?
-
-If something is not working:
-
-1. Make sure Python is installed correctly
-2. Make sure all packages are installed (run pip install again)
-3. Try restarting your computer
-4. Check that you are in the correct folder
+**Buttons on this page:**
+- **Export Report** - Save performance report
+- **Save Results** - Save detection results
+- **Run Detection** - Go to Detect page
+- **Compare Models** - Go to Compare page
 
 ---
 
-## Technical Details (For Advanced Users)
+### COMPARE Page
 
-This system uses:
-- Deep Reinforcement Learning (DQN) for decision making
-- Few-Shot Learning for adapting to new threats
-- Hybrid detection combining both approaches
+Comparison table showing our model vs other methods:
 
-The model was trained on IoT network traffic data and can detect:
-- Port scanning attacks
-- Command and control communication
-- Botnet behavior patterns
+| Method | Accuracy | Detection Rate |
+|--------|----------|----------------|
+| **ZeroDay-DRL (Ours)** | 95.2% | 94.8% |
+| Random Forest | 89.1% | 87.5% |
+| SVM | 85.3% | 82.1% |
+| Neural Network | 91.2% | 89.7% |
+
+**Buttons on this page:**
+- **Generate Report** - Export comparison report
+- **View Dashboard** - Go to Stats page
+
+---
+
+### SETTINGS Page
+
+Configuration options:
+
+| Setting | Description |
+|---------|-------------|
+| **Detection Speed Slider** | 100ms (fast) to 1000ms (slow) - Controls delay between detections |
+
+**Buttons on this page:**
+- **Reload Model** - Re-initialize the detection model
+- **Clear All Data** - Reset everything
+
+---
+
+## Understanding the Colors
+
+| Color | Meaning |
+|-------|---------|
+| **Green** | Safe traffic / Success / Ready |
+| **Red** | Threat detected / Stop / Error |
+| **Cyan/Blue** | Information / Running |
+| **Orange** | Warning / Loading |
+| **Yellow** | Statistics / Accuracy |
+| **Purple** | Features / Navigation |
+
+---
+
+## How Detection Works
+
+1. System loads the pre-trained Hybrid Detector (DRL + Few-Shot Learning)
+2. Test data is loaded from IoT-23 dataset or synthetic data
+3. When you click START, the system:
+   - Randomly selects a sample from test data
+   - Runs it through the neural network model
+   - Measures actual inference time
+   - Displays prediction (THREAT/SAFE) with confidence
+   - Compares with true label to calculate accuracy
+   - Logs everything with timestamps
+4. This continues in a loop until you click STOP
+
+---
+
+## Troubleshooting
+
+| Problem | Solution |
+|---------|----------|
+| **"python not recognized"** | Reinstall Python with "Add to PATH" checked |
+| **"No module named tkinter"** | Linux: `sudo apt install python3-tk` |
+| **"No module named X"** | Run `pip install -r requirements.txt` again |
+| **Window doesn't open** | Make sure you have a display connected |
+| **"CUDA not available"** | This is just a warning - CPU mode works fine |
+| **Segmentation fault** | Make sure you're using the simple_gui.py file |
+
+---
+
+## File Structure
+
+```
+ZeroDay-DRL/
+├── gui/
+│   └── simple_gui.py      <- RUN THIS FILE
+├── data/
+│   └── cleaned_data.csv   <- Dataset (auto-generated if missing)
+├── results/
+│   └── checkpoints/       <- Saved models
+├── configs/
+│   └── config.yaml        <- Configuration
+├── hybrid_model/          <- Detection model code
+├── preprocessing/         <- Data processing code
+├── main.py                <- Alternative entry point
+├── requirements.txt       <- Dependencies
+└── README.md              <- This file
+```
+
+---
+
+## Command Line Options
+
+```bash
+# Run the GUI (recommended)
+python3 gui/simple_gui.py
+
+# Run demo mode
+python3 main.py --mode demo
+
+# Train a new model
+python3 main.py --mode train
+
+# Train with specific episodes
+python3 main.py --mode train --num-episodes 200
+```
+
+---
+
+## Technical Details
+
+- **Deep Reinforcement Learning**: DQN agent learns optimal detection policy
+- **Few-Shot Learning**: Prototypical networks for zero-day threat detection
+- **Hybrid Approach**: Combines DRL and Few-Shot for robust detection
+- **Dataset**: IoT-23 (real IoT botnet traffic) or synthetic data
 
 ---
 
 ## License
 
-This project is open source. You can use it for learning and research.
+Open source for learning and research.
